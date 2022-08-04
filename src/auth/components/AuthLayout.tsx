@@ -3,11 +3,14 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import fityouLogo from "../assets/fityouLogo.svg";
-import Signin from "./Signin";
+import fityouLogo from "../../assets/fityouLogo.svg";
+import { Routes, Route } from "react-router-dom";
+import Login from "./Login";
 import Signup from "./Signup";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
-function Copyright(props: any) {
+const Copyright = (props: any) => {
   return (
     <Typography
       variant="body2"
@@ -23,11 +26,12 @@ function Copyright(props: any) {
       {"."}
     </Typography>
   );
-}
+};
 
+type Children = { children?: any };
 const theme = createTheme();
 
-export default function SignInSide() {
+const AuthLayout: React.FC<Children> = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -48,10 +52,16 @@ export default function SignInSide() {
             backgroundPosition: "center",
           }}
         />
-        <Signin />
-        {/* <Signup /> */}
+        <Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="resetpassword" element={<ResetPassword />} />
+        </Routes>
       </Grid>
       <Copyright sx={{ mt: 5 }} />
     </ThemeProvider>
   );
-}
+};
+
+export default AuthLayout;
